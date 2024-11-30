@@ -20,7 +20,6 @@ print("Współczynnik przesunięcia (intercept):", model.intercept_)
 print("Mean Squared Error (MSE):", mean_squared_error(Y_test, y_pred))
 print("R^2 Score:", r2_score(Y_test, y_pred))
 
-
 sns.scatterplot(x=earnings["Employment"], y=earnings["Revenue (in millions)"], label="Dane rzeczywiste", marker="o")
 plt.plot(X, model.predict(earnings[["Employment"]]), color="red", label="Linia regresji")
 plt.title("Przychody w zależności od zatrudnienia")
