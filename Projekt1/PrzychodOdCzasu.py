@@ -136,4 +136,9 @@ plt.legend()
 
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True, nbins=12))
 
+# Wypisz przewidziany przychód dla lat po ostatnim roku rzeczywistym
+predicted_values_df = pd.DataFrame({"rok": predicted_years["rok"], "przychod_mln": predicted_values})
+print(f"Przewidywane przychody dla lat {last_actual_year + 1} - {up_to_year}")
+print(predicted_values_df)
+
 plt.show()
