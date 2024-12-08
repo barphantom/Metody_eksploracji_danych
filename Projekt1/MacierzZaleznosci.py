@@ -8,10 +8,3 @@ scatter_matrix(all_data_csv, figsize=(12, 12), diagonal='kde')
 plt.suptitle("Macierz rozrzutu danych")
 plt.tight_layout()
 plt.show()
-
-
-
-
-
-
-
