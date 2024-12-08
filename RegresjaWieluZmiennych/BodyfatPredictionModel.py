@@ -30,7 +30,8 @@ selected_features = correlation_with_target[abs(correlation_with_target) > 0.5].
 selected_features = [feature for feature in selected_features if feature != target_variable]
 print("\nWybrane zmienne do modelu (po korelacji):")
 print(selected_features)
-
+print(correlation_with_target[selected_features].values)
+print(data[selected_features].values)
 
 def calculate_vif(df, features):
     vif_data = pd.DataFrame()
