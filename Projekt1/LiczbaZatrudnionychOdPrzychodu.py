@@ -102,10 +102,14 @@ def main():
     model = trenowanie_modelu(X_train, Y_train)
     coef, intercept, mse, r2 = ocen_model(model, X_test, Y_test)
 
-    print(f"Współczynnik regresji: {coef}")
-    print(f"Współczynnik przesunięcia: {intercept}")
-    print(f"Błąd średniokwadratowy (MSE): {mse}")
-    print(f"Współczynnik determinacji (R^2): {r2}\n")
+    metrics = {
+        "Współczynniki": ["Współczynnik regresji", "Współczynnik przesunięcia", "Błąd średniokwadratowy (MSE)",
+                          "Współczynnik determinacji (R^2)"],
+        "Wartości dla współczynników": [coef, intercept, mse, r2]
+    }
+
+    metrics_df = pd.DataFrame(metrics)
+    print(metrics_df)
 
     predicted_years, predicted_values, real_predicted_data = prognozuj(model, X, from_year, up_to_year, real_data)
     wizualizacja(model, X, Y, predicted_years, predicted_values, real_predicted_data, from_year, up_to_year,
