@@ -22,6 +22,7 @@ print(korelacja_z_waga)
 wybrane_predyktory = [item for item, value in korelacja_z_waga.items() if (np.abs(value) > 0.5 and item != "Weight")]
 print("Wybrane predyktory:", wybrane_predyktory)
 
+
 # Obliczenie VIF dla wybranych predyktorów
 def oblicz_vif(data, features):
     vif_data = pd.DataFrame()
@@ -29,6 +30,7 @@ def oblicz_vif(data, features):
     X = data[features].values
     vif_data["VIF"] = [variance_inflation_factor(X, i) for i in range(X.shape[1])]
     return vif_data
+
 
 # Początkowy VIF
 vif_data = oblicz_vif(dane, wybrane_predyktory)
@@ -64,7 +66,8 @@ print("Intercept:", reg.intercept_)
 # Wykres rzeczywiste vs przewidywane
 plt.figure(figsize=(10, 6))
 plt.scatter(y_final, y_pred, color='blue', label="Predykcja")
-plt.plot([y_final.min(), y_final.max()], [y_final.min(), y_final.max()], color='red', linestyle='--', label="Idealna linia")
+plt.plot([y_final.min(), y_final.max()], [y_final.min(), y_final.max()], color='red', linestyle='--',
+         label="Idealna linia")
 plt.xlabel("Rzeczywiste wartości Weight")
 plt.ylabel("Przewidywane wartości Weight")
 plt.title("Rzeczywiste vs Przewidywane wartości Weight")

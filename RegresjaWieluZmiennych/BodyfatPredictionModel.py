@@ -8,7 +8,6 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
 data = pd.read_csv("dane.txt", delimiter="\t")
 # print(data.head())
 # print(data.shape)
@@ -17,7 +16,7 @@ correlation_matrix = data.corr(method='pearson')
 # print(correlation_matrix)
 
 plt.figure(figsize=(10, 8))
-sns.heatmap(correlation_matrix, annot=True, fmt='.2f', cmap='coolwarm', cbar=True)
+sns.heatmap(correlation_matrix.abs(), annot=True, fmt='.2f', cmap='coolwarm', cbar=True)
 plt.show()
 
 target_variable = "Pct.BF"
@@ -32,6 +31,7 @@ print("\nWybrane zmienne do modelu (po korelacji):")
 print(selected_features)
 print(correlation_with_target[selected_features].values)
 print(data[selected_features].values)
+
 
 def calculate_vif(df, features):
     vif_data = pd.DataFrame()
@@ -83,7 +83,7 @@ print(f"Pierwiastek z MSE (RMSE): {np.sqrt(mean_squared_error(y_test, y_pred)):.
 
 plt.figure(figsize=(10, 6))
 plt.scatter(y_test, y_pred, alpha=0.7, color='blue')
-plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')
+plt.plot([min(y_test), max(y_test)], [min(y_pred), max(y_pred)], color='red', linestyle='--')
 plt.xlabel("Rzeczywiste wartości (y_test)")
 plt.ylabel("Przewidywane wartości (y_pred)")
 plt.title("Regresja liniowa - rzeczywiste vs przewidywane")
