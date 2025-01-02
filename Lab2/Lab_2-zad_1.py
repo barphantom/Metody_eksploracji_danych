@@ -31,19 +31,23 @@ logistyczny = LogisticRegression()
 logistyczny.fit(X, Y)
 print(f"M. logistyczny: {logistyczny.score(X, Y)}")
 
-
-plt.figure(figsize=(10, 6), dpi=300)
-plt.scatter(X, Y, color="green", alpha=0.1)
-
+# Wykres liniowy
+plt.figure(figsize=(10, 6))
+plt.scatter(X, Y, color="grey", marker="x", alpha=0.4)
 plt.plot(X, liniowy.predict(X), color="red", label="Model liniowy", linewidth=1)
-
-sns.regplot(x=X, y=Y, logistic=True, ci=None, label="Model logisyczny")
-
+plt.title("Liniowy model prawdopodobieństwa")
 plt.xlabel("Rokstudiów")
 plt.ylabel("Stancywilny")
-plt.title("Logistyczny model prawdopodobieństwa")
-plt.legend()
+plt.grid(alpha=0.4, linestyle="--", linewidth=0.5, color="gray")
+plt.savefig("Lab_2-zad_1-model_lin.png", dpi=300)
 plt.show()
 
-
-# macierz(dane)
+# Wykres logistyczny
+plt.figure(figsize=(10, 6))
+sns.regplot(data=dane, x=X, y=Y, marker="x", color=".3", line_kws=dict(color="r"), logistic=True, ci=20)
+plt.title("Logistyczny model prawdopodobieństwa")
+plt.xlabel("Rokstudiów")
+plt.ylabel("Stancywilny")
+plt.grid(alpha=0.4, linestyle="--", linewidth=0.5, color="gray")
+plt.savefig("Lab_2-zad_1-model_log.png", dpi=300)
+plt.show()
