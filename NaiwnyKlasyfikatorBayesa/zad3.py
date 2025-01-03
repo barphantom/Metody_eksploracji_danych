@@ -14,6 +14,7 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('punkt_tab')
 
+
 # Funkcja do przetwarzania tekstu
 def preprocess_text(text):
     # Tokenizacja
@@ -31,20 +32,31 @@ file_path = "./MED-lab-3-Zad 3-Mandrill-Dane.xlsx"  # Zmień na swoją ścieżk�
 mandrill_posts = pd.read_excel(file_path, sheet_name='dot. aplikacji Mandrill')
 other_posts = pd.read_excel(file_path, sheet_name='dot. innych')
 
+print(mandrill_posts)
+print(other_posts)
+
 # Dodaj etykiety
 mandrill_posts['label'] = 'Mandrill'
 other_posts['label'] = 'inne'
 
+print(mandrill_posts)
+print(other_posts)
+
 # Połącz dane
 data = pd.concat([mandrill_posts, other_posts], ignore_index=True)
+print(data)
 data['Post'] = data['Post'].astype(str)
+print(data)
 
 # Przetwórz teksty
 data['Processed_Post'] = data['Post'].apply(preprocess_text)
+print(data)
 
 # Podział na dane i etykiety
 X = data['Processed_Post']
 y = data['label']
+print(X)
+print(y)
 
 # Podział na zestawy treningowy i testowy
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -52,7 +64,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # TF-IDF
 vectorizer = TfidfVectorizer()
 X_train_tfidf = vectorizer.fit_transform(X_train)
+print(X_train_tfidf)
 X_test_tfidf = vectorizer.transform(X_test)
+print(X_test_tfidf)
 
 # Naiwny klasyfikator Bayesowski
 model = MultinomialNB()
