@@ -90,7 +90,8 @@ print("\n") # Poprawiłem czytelność wyników przez DataFrame
 results_df = pd.DataFrame({
     'Post': X_test,
     'Etykieta rzeczywista': y_test,
-    'Etykieta przewidziana': y_pred
+    'Etykieta przewidziana': y_pred,
+    'Czy uległa zmianie?': ['' if actual == predicted else 'Tak' for actual, predicted in zip(y_test, y_pred)]
 })
 
 print(results_df)
