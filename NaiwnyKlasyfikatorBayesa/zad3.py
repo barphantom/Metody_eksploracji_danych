@@ -27,8 +27,9 @@ def preprocess_text(text):
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
     return ' '.join(tokens)
 
+
 # Wczytaj dane z pliku Excel
-file_path = "./MED-lab-3-Zad 3-Mandrill-Dane.xlsx"  # Zmień na swoją ścieżkę
+file_path = "./MED-lab-3-Zad 3-Mandrill-Dane.xlsx"
 mandrill_posts = pd.read_excel(file_path, sheet_name='dot. aplikacji Mandrill')
 other_posts = pd.read_excel(file_path, sheet_name='dot. innych')
 
