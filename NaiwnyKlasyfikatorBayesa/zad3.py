@@ -87,13 +87,7 @@ new_post_tfidf = vectorizer.transform([new_post_processed])
 prediction = model.predict(new_post_tfidf)
 print(f"Predykcja dla nowego posta: {prediction[0]}")
 
-print("\n") # Poprawiłem czytelność wyników przez DataFrame
-results_df = pd.DataFrame({
-    'Post': X_test,
-    'Etykieta rzeczywista': y_test,
-    'Etykieta przewidziana': y_pred,
-    'Czy uległa zmianie?': ['' if actual == predicted else 'Tak' for actual, predicted in zip(y_test, y_pred)]
-})
-
-print(results_df)
+print("\n")
+for sym in range(len(y_pred)):
+    print(f"Post: {X_test.iloc[sym]} | Etykieta rzeczywista: {y_test.iloc[sym]} | Etykieta przewidziana: {y_pred[sym]}")
 

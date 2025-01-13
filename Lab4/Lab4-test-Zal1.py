@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report
+import matplotlib.lines as mlines
 
 # Przygotowanie danych (przykład - dostosuj do swojego pliku)
 data = pd.read_excel("Płatki-sniadaniowe-cereals.xlsx")  # Załaduj dane z pliku Excel
@@ -54,22 +55,146 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01), np.arange(y_min, y_max, 0.01
 Z = knn.predict(np.c_[xx.ravel(), yy.ravel()])
 Z = Z.reshape(xx.shape)
 
+# # Wykres granic decyzyjnych
+# plt.figure(figsize=(10, 6))
+# # plt.contourf(xx, yy, Z, alpha=0.8, cmap=plt.cm.Paired)
+# plt.contourf(xx, yy, Z, alpha=0.8, cmap='viridis')  # Przykład z 'viridis'
+#
+#
+# # Rozkład danych treningowych i testowych
+# # Użycie y_pred zamiast y dla danych testowych
+# plt.scatter(X_test[:, 0], X_test[:, 1], c=y_pred, cmap=plt.cm.Paired, marker='x', s=100, label="Predykcje testowe")
+#
+# # Rozkład danych treningowych
+# plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=plt.cm.Paired, marker='o', label="Dane treningowe")
+#
+# plt.title(f"Granice decyzyjne KNN (k = {k})")
+# plt.xlabel("Kalorie (znormalizowane)")
+# plt.ylabel("Tłuszcz (znormalizowany)")
+# plt.legend()
+# plt.grid(True)
+# plt.show()
+
+# # Wykres granic decyzyjnych
+# plt.figure(figsize=(10, 6))
+# plt.contourf(xx, yy, Z, alpha=0.5, cmap='viridis')
+#
+# # Kolory dla klas
+# colors = ['purple', 'blue', 'yellow']
+# labels = ['Niskokaloryczne i niskotłuszczowe', 'Wysokokaloryczne i niskotłuszczowe', 'Wysokokaloryczne i wysokotłuszczowe']
+#
+# # Rozkład danych treningowych
+# for i, color in enumerate(colors):
+#     plt.scatter(X_train[y_train == i, 0], X_train[y_train == i, 1], color=color, marker='o', alpha=0.7, label=f"Dane treningowe: {labels[i]}")
+#
+# # Rozkład danych testowych z predykcjami
+# for i, color in enumerate(colors):
+#     plt.scatter(X_test[y_pred == i, 0], X_test[y_pred == i, 1], color=color, marker='x', alpha=1.0, s=100, label=f"Predykcje testowe: {labels[i]}")
+#
+# plt.title(f"Granice decyzyjne KNN (k = {k})")
+# plt.xlabel("Kalorie (znormalizowane)")
+# plt.ylabel("Tłuszcz (znormalizowany)")
+# plt.legend(fontsize='7')
+# plt.grid(True)
+# plt.show()
+
+# # Wykres granic decyzyjnych
+# plt.figure(figsize=(10, 6))
+# plt.contourf(xx, yy, Z, alpha=0.8, cmap='viridis')
+#
+# # Definiujemy odcienie kolorów dla każdej klasy
+# train_colors = ['#FF5733', '#3357FF', '#33FF57']  # Czerwony, zielony, niebieski
+# test_colors = ['#C70039', '#1F618D', '#28B463']   # Ciemniejsze odcienie
+#
+#
+# # Etykiety klas
+# labels = ['Niskokaloryczne i niskotłuszczowe', 'Wysokokaloryczne i niskotłuszczowe', 'Wysokokaloryczne i wysokotłuszczowe']
+#
+# # Rozkład danych treningowych
+# for i, color in enumerate(train_colors):
+#     plt.scatter(
+#         X_train[y_train == i, 0],
+#         X_train[y_train == i, 1],
+#         color=color,
+#         marker='o',
+#         label=f"Dane treningowe: {labels[i]}",
+#         alpha=1.0  # Ustawienie przezroczystości
+#     )
+#
+# # Rozkład danych testowych z predykcjami
+# for i, color in enumerate(test_colors):
+#     plt.scatter(
+#         X_test[y_pred == i, 0],
+#         X_test[y_pred == i, 1],
+#         color=color,
+#         marker='x',
+#         s=100,
+#         label=f"Predykcje testowe: {labels[i]}",
+#         alpha=1.0  # Brak przezroczystości dla testowych punktów
+#     )
+#
+# plt.title(f"Granice decyzyjne KNN (k = {k})")
+# plt.xlabel("Kalorie (znormalizowane)")
+# plt.ylabel("Tłuszcz (znormalizowany)")
+#
+# # Dodanie legendy z mniejszą czcionką
+# plt.legend(fontsize=8)
+# plt.grid(True)
+# plt.show()
+
 # Wykres granic decyzyjnych
 plt.figure(figsize=(10, 6))
-# plt.contourf(xx, yy, Z, alpha=0.8, cmap=plt.cm.Paired)
-plt.contourf(xx, yy, Z, alpha=0.8, cmap='viridis')  # Przykład z 'viridis'
+plt.contourf(xx, yy, Z, alpha=0.8, cmap='viridis')
 
+# Definiujemy odcienie kolorów dla każdej klasy
+train_colors = ['#FF5733', '#3357FF', '#33FF57']  # Czerwony, zielony, niebieski
+test_colors = ['#C70039', '#1F618D', '#28B463']   # Ciemniejsze odcienie
 
-# Rozkład danych treningowych i testowych
-# Użycie y_pred zamiast y dla danych testowych
-plt.scatter(X_test[:, 0], X_test[:, 1], c=y_pred, cmap=plt.cm.Paired, marker='x', s=100, label="Predykcje testowe")
+# Etykiety klas
+# labels = ['Niskokaloryczne i niskotłuszczowe', 'Wysokokaloryczne i niskotłuszczowe', 'Wysokokaloryczne i wysokotłuszczowe']
+labels = ['Klasa 1', 'Klasa 2', 'Klasa 3']
+
 
 # Rozkład danych treningowych
-plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=plt.cm.Paired, marker='o', label="Dane treningowe")
+for i, color in enumerate(train_colors):
+    plt.scatter(
+        X_train[y_train == i, 0],
+        X_train[y_train == i, 1],
+        color=color,
+        marker='o',
+        label=f"Dane treningowe: {labels[i]}",
+        alpha=1.0
+    )
+
+# Rozkład danych testowych z predykcjami
+for i, color in enumerate(test_colors):
+    plt.scatter(
+        X_test[y_pred == i, 0],
+        X_test[y_pred == i, 1],
+        color=color,
+        marker='x',
+        s=100,
+        label=f"Predykcje testowe: {labels[i]}",
+        alpha=1.0
+    )
+
+# Definiujemy kolory tła dla legendy
+background_colors = ['#440154', '#21908d', '#fde725']  # Kolory z cmap='viridis'
+background_labels = ['Klasa 1 - Niskokaloryczne i niskotłuszczowe', 'Klasa 2- Wysokokaloryczne i niskotłuszczowe', 'Klasa 3 - Wysokokaloryczne i wysokotłuszczowe']
+
+# Tworzenie elementów do legendy
+background_patches = [
+    mlines.Line2D([], [], color=color, marker='o', linestyle='None', markersize=8, label=label)
+    for color, label in zip(background_colors, background_labels)
+]
+
+# Dodanie wszystkich elementów do legendy
+plt.legend(handles=background_patches + plt.legend().legend_handles, fontsize=8)
 
 plt.title(f"Granice decyzyjne KNN (k = {k})")
 plt.xlabel("Kalorie (znormalizowane)")
 plt.ylabel("Tłuszcz (znormalizowany)")
-plt.legend()
 plt.grid(True)
 plt.show()
+
+
