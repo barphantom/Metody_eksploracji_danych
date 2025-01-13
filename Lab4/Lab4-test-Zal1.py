@@ -42,9 +42,9 @@ y_pred = knn.predict(X_test)
 
 # Ocena modelu
 print("Dokładność:", accuracy_score(y_test, y_pred))
-print("Raport klasyfikacji:\n", classification_report(y_test, y_pred))
+print("Raport klasyfikacji:\n", classification_report(y_test, y_pred, zero_division=0))
+print("Przewidywania modelu: ", y_pred)
 
-# Wizualizacja wyników
 # Tworzenie siatki dla granic decyzyjnych
 x_min, x_max = X_scaled[:, 0].min() - 0.1, X_scaled[:, 0].max() + 0.1
 y_min, y_max = X_scaled[:, 1].min() - 0.1, X_scaled[:, 1].max() + 0.1
@@ -56,11 +56,20 @@ Z = Z.reshape(xx.shape)
 
 # Wykres granic decyzyjnych
 plt.figure(figsize=(10, 6))
-plt.contourf(xx, yy, Z, alpha=0.8, cmap=plt.cm.Paired)
+# plt.contourf(xx, yy, Z, alpha=0.8, cmap=plt.cm.Paired)
+plt.contourf(xx, yy, Z, alpha=0.8, cmap='viridis')  # Przykład z 'viridis'
+
 
 # Rozkład danych treningowych i testowych
-plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=y, edgecolor='k', cmap=plt.cm.Paired)
-plt.title("Granice decyzyjne KNN (k = 5)")
+# Użycie y_pred zamiast y dla danych testowych
+plt.scatter(X_test[:, 0], X_test[:, 1], c=y_pred, cmap=plt.cm.Paired, marker='x', s=100, label="Predykcje testowe")
+
+# Rozkład danych treningowych
+plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=plt.cm.Paired, marker='o', label="Dane treningowe")
+
+plt.title(f"Granice decyzyjne KNN (k = {k})")
 plt.xlabel("Kalorie (znormalizowane)")
 plt.ylabel("Tłuszcz (znormalizowany)")
+plt.legend()
+plt.grid(True)
 plt.show()
